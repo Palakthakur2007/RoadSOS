@@ -1470,9 +1470,9 @@ async function loadRealPlaces() {
 document.getElementById('place-list').innerHTML = '<div style="padding:20px;color:#5ca8ff;text-align:center;">Loading nearby places...</div>';
   try {
     const [h, p, t] = await Promise.all([
-      fetch(`http://localhost:5000/nearest-hospital?lat=${lat}&lng=${lng}&limit=8&radius=5`).then(r=>r.json()),
-      fetch(`http://localhost:5000/nearest-police?lat=${lat}&lng=${lng}&limit=8&radius=10`).then(r=>r.json()),
-      fetch(`http://localhost:5000/nearest-towing?lat=${lat}&lng=${lng}&limit=8&radius=10`).then(r=>r.json()),
+      fetch(`https://road-sos-taupe.vercel.app/nearest-hospital?lat=${lat}&lng=${lng}&limit=8&radius=5`).then(r=>r.json()),
+      fetch(`https://road-sos-taupe.vercel.app/nearest-police?lat=${lat}&lng=${lng}&limit=8&radius=10`).then(r=>r.json()),
+      fetch(`https://road-sos-taupe.vercel.app/nearest-towing?lat=${lat}&lng=${lng}&limit=8&radius=10`).then(r=>r.json()),
     ]);
     PLACES.length = 0;
     (h.results||[]).forEach((x,i) => PLACES.push({ id:i+1,   type:'hospital', name:x.name, lat:x.lat, lng:x.lng, dist:x.distanceStr, open:x.openingHours||'24x7', extra:x.phone||'Call 102' }));
@@ -1965,7 +1965,7 @@ async function sendChat() {
 
   try {
     console.log('Sending location:', window.userLat, window.userLng);
-const response = await fetch('http://localhost:5000/chat', {
+const response = await fetch('https://road-sos-taupe.vercel.app/chat', {
       method : 'POST',
       headers: { 'Content-Type': 'application/json' },
       body   : JSON.stringify({ message: text, lat: window.userLat, lng: window.userLng }),
