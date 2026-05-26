@@ -1668,7 +1668,12 @@ function initMap() {
 
   // Load real places from backend
 // Load real places after short delay
-  setTimeout(() => loadRealPlaces(), 2000);
+  setTimeout(() => {
+  if (window.userLat && window.userLng) {
+    map.flyTo([window.userLat, window.userLng], 14);
+  }
+  loadRealPlaces();
+}, 2000);
 }
 
 function renderPlaces() {
